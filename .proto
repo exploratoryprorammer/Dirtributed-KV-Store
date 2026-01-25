@@ -28,3 +28,8 @@ message AppendEntriesRequest {
     unit64 leader_commit = 6;
 }
 
+message AppendEntriesResponse {
+    unit64 term = 1;
+    bool success = 2;
+}
+
