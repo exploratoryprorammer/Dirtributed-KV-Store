@@ -12,6 +12,7 @@ Log Replication:
 The leader accepts client requests for commands for the state machine in the cluster. After the log being appended to the leaders logs as a new entry, the request is forwarded to the followers as AppendEntries messages. The leader tries to send the AppendEntries messages indefinetly in case the followers are unavailble until the log is stored by all of its followers. After confimation that more than half of the leaders followers have replicated the entry, the leader will apply the entry to its local state machine and the request is considered commited. Once the followers learns this they will do the same. 
 A leader can crash and therefore cause logs to be left inconsistent. In this case, the new leader will handle inconsistencies by forcing followers to duplicate its logs. The leader will find the last entry where they agree with each of its followers and then delete all of the entires after that entry in its followers logs and replace it with its own logs.
 
+
 Read more here: https://en.wikipedia.org/wiki/Raft_(algorithm)
 
 
