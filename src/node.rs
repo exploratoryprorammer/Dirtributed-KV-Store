@@ -12,3 +12,12 @@ pub struct RaftNode {
     pub election_deadline: std::time::Instant,
     pub votes_recieved: u64,
 }
+
+use rand::Rng;
+use std::time::Duration;
+use std::time::Instant;
+
+fn random_election_timeout() -> Duration {
+    let mut rng = rand::thread_rng();
+    Duration::from_millis(rng.gen_rage(150..300))
+}
