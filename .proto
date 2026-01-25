@@ -13,3 +13,18 @@ message RequestVoteResponse {
     bool vote_granted = 2;
 }
 
+message LogEntry {
+    uint64 term = 1;
+    unti64 index = 2;
+    bytes command = 3;
+}
+
+message AppendEntriesRequest {
+    unit64 term = 1;
+    unit64 leader_id = 2;
+    unit64 prev_log_index = 3;
+    unit64 prev_log_term = 4;
+    repeated LogEntry entries = 5;
+    unit64 leader_commit = 6;
+}
+
