@@ -9,3 +9,5 @@ Leader election:
 In a leader election, the candidate node elects itself as a leader and sends a signal to all of the other nodes for a vote. If a candidate receives enough votes that the candidates with a term number higher than the current leader the candidate becomes the new leader. If the candidate looses then it accepts the legitimate winner of the election. In the event that there is a tie in the voting process, then a new term starts and new election begins. Raft uses ranodmized server tiemouts to ensure split votes wont happen as servers turn into candidates asyncronously.
 
 Read more here: https://en.wikipedia.org/wiki/Raft_(algorithm)
+
+
