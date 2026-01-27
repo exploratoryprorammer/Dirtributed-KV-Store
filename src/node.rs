@@ -15,14 +15,25 @@ pub struct RaftNode {
 }
 
 impl RaftNode {
+    pub fn new(id: u64, peers: Vec<u64>) -> Self {
+        Self 
+        {
+            id,
+            role = Role::Follower,
+            current_term = 0,
+            voted_for = None,
+            votes_recieved = 0,
+            election_deadline = Instant::now() + random_election_timeout()
+
+        }
+
+    }
+
     pub fn tick(&mut self) {
         if Instant::now() >= slef.election_deadline {
             self.start_election();
         }
     }
-}
-
-impl RaftNode {
     fn start_election(&mut self) {
         self.role = Role::Candidate;
         self.current_term += 1;
@@ -36,6 +47,12 @@ impl RaftNode {
             self.id, self.current_term
         );
     }
+
+    pub fn handle_vote_response 
+}
+
+impl RaftNode {
+    
 }
 
 
