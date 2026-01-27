@@ -48,7 +48,19 @@ impl RaftNode {
         );
     }
 
-    pub fn handle_vote_response 
+    pub fn handle_vote_response(&mut self, granted: bool, total_node: usize) {
+        if self.role != Role::Candidate {
+            return;
+        }
+
+        if granted {
+            self.votes_recieved += 1
+            if self.votes_recieved > total_node / 2 {
+                self.become_leader();
+            }
+        }
+
+    }
 }
 
 impl RaftNode {
