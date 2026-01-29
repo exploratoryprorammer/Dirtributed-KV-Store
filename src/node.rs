@@ -1,3 +1,6 @@
+use rand::Rng;
+use std::time::Duration;
+use std::time::Instant;
 
 pub enum Role {
     Leader,
@@ -12,6 +15,7 @@ pub struct RaftNode {
     pub voted_for: Option<u64>
     pub election_deadline: std::time::Instant,
     pub votes_recieved: u64,
+    pub peers: Vec<u64>
 }
 
 impl RaftNode {
@@ -34,6 +38,7 @@ impl RaftNode {
             self.start_election();
         }
     }
+
     fn start_election(&mut self) {
         self.role = Role::Candidate;
         self.current_term += 1;
@@ -61,18 +66,17 @@ impl RaftNode {
         }
 
     }
-}
 
-impl RaftNode {
+    fn become_leader(&mut self) {
+        self.role = Role::Leader;
+        println!(
+            "[Node {}] became leader for term {}",
+            self.id, self.current_term
+        );
+    }
+
     
 }
-
-
-
-
-use rand::Rng;
-use std::time::Duration;
-use std::time::Instant;
 
 fn random_election_timeout() -> Duration {
     let mut rng = rand::thread_rng();
