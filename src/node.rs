@@ -8,6 +8,13 @@ pub enum Role {
     Candidate
 }
 
+pub struct LogEntry {
+    pub term: u64,
+    pub command: String,
+}
+
+
+
 pub struct RaftNode {
     pub id: u64,
     pub role: Role,
@@ -15,7 +22,9 @@ pub struct RaftNode {
     pub voted_for: Option<u64>
     pub election_deadline: std::time::Instant,
     pub votes_recieved: u64,
-    pub peers: Vec<u64>
+    pub peers: Vec<u64>,
+    pub log: Vec<LogEntry>,
+    pub commit_index: usize
 }
 
 impl RaftNode {
@@ -28,9 +37,21 @@ impl RaftNode {
             voted_for = None,
             votes_recieved = 0,
             election_deadline = Instant::now() + random_election_timeout()
+            log: Vec::new(),
+            commit_index: 0
 
         }
 
+    }
+
+    pub fn heartbeat(& mut self) {
+        if self.Role == Role::Leader {
+            print("[Node {}]", self.id)
+        }
+    }
+
+    pub fn append_entry(& mut self, entry: LogEntry) {
+        I
     }
 
     pub fn tick(&mut self) {
