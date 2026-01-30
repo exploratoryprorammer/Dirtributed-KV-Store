@@ -51,7 +51,28 @@ impl RaftNode {
     }
 
     pub fn append_entry(& mut self, entry: LogEntry) {
-        I
+        if self.role != Role::Leader {
+            return;
+        }
+        self.log.push(entry);
+        self.commit_index = self.log.len();
+
+        println!(
+            "[ Node {} ] appended entry [commit index {}]",
+            self.id, self.commit_index
+        );
+    }
+
+    pub fn recieve_append(& mut self, entry: LogEntry, leader_term: u64) {
+        if leader_term < self.current_term {
+            return;
+        }
+
+        self.term = current_term;
+        self.role = Role::Follower;
+        self.log.push(entry);
+        self.commit_index = self.log.len();
+        self.election_deadline = Instant.now() + random_election_timeout();
     }
 
     pub fn tick(&mut self) {
